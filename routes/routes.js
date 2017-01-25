@@ -1,20 +1,19 @@
 /**
  * Created by davedega on 13/12/16.
  */
-// var dao = require('../business/valparaiso_dao.js');
+var dao = require('../business/valparaiso_dao.js');
 // var fs = require('fs');
 
 module.exports = function (app) {
+    console.log("initializing routes...");
 
     app.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Credentials', 'true');
+        // res.header('Access-Control-Allow-Credentials', 'true');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
         res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type, unit, limit, qty, skip');
         res.header('Access-Control-Allow-Origin', '*');
-
         next();
     });
-
 
     //sign up
     app.post('/signup', function (req, res) {
@@ -23,7 +22,10 @@ module.exports = function (app) {
             var mPass = req.body.password
             console.log('user' + mUser);
             console.log('pass' + mPass);
-            res.send(JSON.stringify({'user': mUser, "pass": mPass}));
+            dao.newUser(mUser, mPass, function (response) {
+                res.send(JSON.stringify({'msg': response}));
+            });
+
         }
     );
 
@@ -43,7 +45,9 @@ module.exports = function (app) {
             console.log('/newGood called with following params: ');
             var mGood = req.body.goodname;
             console.log('mGood' + mGood);
-            res.send(JSON.stringify({'good': mGood}));
+            dao.newGood(mGood, function (response) {
+                res.send(JSON.stringify(({'msg': response})));
+            });
         }
     );
     //register proyect
@@ -51,15 +55,20 @@ module.exports = function (app) {
             console.log('/newProject called with following params: ');
             var mProject = req.body.projectname;
             console.log('mProject' + mProject);
-            res.send(JSON.stringify({'project': mProject}));
+            dao.newProject(mProject, function (response) {
+                res.send(JSON.stringify({'msg': response}));
+
+            });
         }
     );
     //register activity
     app.post('/newActivity', function (req, res) {
             console.log('/newActivity called with following params: ');
             var mActivity = req.body.activityname;
-            console.log('mActivity' + mActivity);
-            res.send(JSON.stringify({'activity': mActivity}));
+            console.log('received: ' + mActivity);
+            dao.newActivity(mActivity, function (response) {
+                res.send(JSON.stringify({'msg:': response}));
+            });
         }
     );
 
