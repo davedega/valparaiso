@@ -3,18 +3,18 @@
  */
 var mysql = require('mysql');
 
-var pool = mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASS,
-    database: process.env.MYSQL_DB,
-    connectionLimit: 10,
-    supportBigNumbers: true
+var pool  = mysql.createPool({
+    connectionLimit : 10,
+    host            : 'localhost',
+    user            : 'davedega',
+    password        : 'dav3d3ga',
+    database        : 'valparaiso'
 });
 
-// Get records from a city
-exports.getRecords = function(city, callback) {
-    var sql = "SELECT name FROM users WHERE city=?";
+
+// Get all goods
+exports.getAllGoods = function(city, callback) {
+    var sql = "SELECT * FROM goods ";
     // get a connection from the pool
     pool.getConnection(function(err, connection) {
         if(err) { console.log(err); callback(true); return; }
