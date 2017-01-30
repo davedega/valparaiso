@@ -1,7 +1,7 @@
 /**
  * Created by davedega on 13/12/16.
  */
-var mysql = require('mysql');
+var db = require('./db/db.js');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -26,31 +26,45 @@ var SERVER_NAME = "localhost";
  * */
 var PORT = 4000;
 
-var connection = mysql.createConnection({
+var connection = {
     host: 'localhost',
     user: 'davedega',
     password: 'dav3d3ga',
     database: 'valparaiso'
-})
+};
+
+db.sayhello();
 
 
-
-
-connection.connect(function (err) {
+db.connect(getDbConf(), function (err) {
     (err) ? error(err) : success(app);
 })
 
+// connection.connect(function (err) {
+//     (err) ? error(err) : success(app);
+// });
+
 
 function error(err) {
-    console.log('Unable to connect to Mysql. '+err);
+    console.log('Unable to connect to Mysql. ' + err);
     process.exit(1);
 }
 
 function success(app) {
-    console.log('Connected to "' + connection.config.database+'"');
+    console.log('Connected to "' + connection.database + '"');
     app.listen(PORT, SERVER_NAME, function () {
         console.log("Listening on port " + PORT);
         require('./routes/routes.js')(app);
     });
     // Logger.setLevel(LOG_LEVEL);
+}
+
+function getDbConf() {
+    return {
+        connectionLimit: 10,
+        host: 'localhost',
+        user: 'davedega',
+        password: 'dav3d3ga',
+        database: 'valparaiso'
+    }
 }

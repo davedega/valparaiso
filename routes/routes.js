@@ -75,40 +75,39 @@ module.exports = function (app) {
     //get all goods
     app.get('/goods', function (req, res) {
         // var mQty = parseInt(req.get("qty"));
-        // dao.getAllGoods(function (response) {
-        res.send(JSON.stringify({'msg': "no goods yet"}));
-        // });
+        dao.getGoods(function (response) {
+            res.send(JSON.stringify({'msg': response}));
+        });
     });
 
     //get all projects
     app.get('/projects', function (req, res) {
         // var mQty = parseInt(req.get("qty"));
-        // dao.getAllGoods(function (response) {
-        res.send(JSON.stringify({'msg': "no projects yet"}));
-        // });
+        dao.getProjects(function (response) {
+            res.send(JSON.stringify({'msg': response}));
+        });
     });
 
     //get all activities
     app.get('/activities', function (req, res) {
         // var mQty = parseInt(req.get("qty"));
-        // dao.getAllGoods(function (response) {
-        res.send(JSON.stringify({'msg': "no activities yet"}));
-        // });
+        dao.getActivities(function (response) {
+            res.send(JSON.stringify({'msg': response}));
+        });
+    });
+
+    //get donations
+    app.get('/donations', function (req, res) {
+        // var mQty = parseInt(req.get("qty"));
+        dao.getDonations(function (response) {
+            res.send(JSON.stringify({'msg': response}));
+        });
     });
 
     app.get('/logout', function (req, res) {
         res.send(JSON.stringify({'msg': "good bye :)"}));
     });
-
-    // app.get('/getGoods/:id?', function (req, res) {
-    //     var mQty = parseInt(req.get("qty"));
-    //     var mUnits = req.get("unit");
-    //     dao.getDNSMapping(req.get("skip"), req.get("limit"), req.params.id, mQty, mUnits, function (response) {
-    //         res.send(response);
-    //     });
-    // });
-}
-
+};
 
 function getFormattedTime() {
     var time = new Date();
@@ -117,6 +116,6 @@ function getFormattedTime() {
     time = time.toString().replace(/\(/, '_');
     time = time.toString().replace(/\)/, '_');
     return time;
-}
+};
 
 //endregion

@@ -1,13 +1,22 @@
 /**
  * Created by davedega on 13/12/16.
  */
+var db = require('./../db/db.js');
+
 module.exports = {
 
     getGoods: function (callback) {
-        console.log("DAO, getGoods");
+        db.getGoods(function (response) {
+            callback(response)
+        });
     },
     getActivities: function (callback) {
         console.log("DAO, getActivities");
+    },
+    getDonations: function (callback) {
+        db.getDonations(function (response) {
+            callback(response)
+        });
     },
     getProjects: function (callback) {
         console.log("DAO, getProjects ");
