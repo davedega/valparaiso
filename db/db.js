@@ -22,53 +22,34 @@ exports.connect = function (conf, res) {
         res()
     });
 };
-// Get goods
-exports.getGoods = function (callback) {
-    var response = {};
-    var sql = "SELECT * FROM goods ";
-    state.pool.query(sql, function (err, results) {
-        // state.pool.release();
-        if (err) {
-            response.error = err.code;
-            callback(response);
-            return;
-        }
-        callback(results);
-    });
-};
+
 // Get donations
 exports.getDonations = function (callback) {
-    var response = {};
     var sql = "SELECT * FROM donation ";
     state.pool.query(sql, function (err, results) {
         // state.pool.release();
         if (err) {
-            response.error = err.code;
-            callback(response);
+            callback(treatError(err));
             return;
         }
-        callback(results);
+        callback(treatData(results));
     });
 };
 
-exports.inserttUser = function (city, callback) {
-    var sql = "SELECT * FROM goods ";
-    // get a connection from the pool
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            console.log(err);
-            callback(true);
-            return;
-        }
-        // make the query
-        connection.query(sql, [city], function (err, results) {
-            connection.release();
-            if (err) {
-                console.log(err);
-                callback(true);
-                return;
-            }
-            callback(false, results);
-        });
-    });
+function treatData(data) {
+    var response = {};
+    if (data) {
+        response.data = data;
+        response.msg = 'ok';
+        return response;
+    } else {
+        response.msg = 'something went wrong';
+        return response;
+    }
+};
+
+function treatError(err) {
+    var response = {};
+    response.error = err.code;
+    return response;
 };

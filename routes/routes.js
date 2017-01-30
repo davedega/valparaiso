@@ -100,7 +100,7 @@ module.exports = function (app) {
     app.get('/donations', function (req, res) {
         // var mQty = parseInt(req.get("qty"));
         dao.getDonations(function (response) {
-            res.send(JSON.stringify({'msg': response}));
+            res.send(JSON.stringify(response));
         });
     });
 
