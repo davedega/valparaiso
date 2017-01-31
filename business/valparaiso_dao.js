@@ -12,6 +12,7 @@ module.exports = {
     },
     getActivities: function (callback) {
         console.log("DAO, getActivities");
+        db.getA
     },
     getDonations: function (callback) {
         db.getDonations(function (response) {

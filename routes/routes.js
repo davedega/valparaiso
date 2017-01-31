@@ -47,6 +47,7 @@ module.exports = function (app) {
             console.log('mGood' + mGood);
             dao.newGood(mGood, function (response) {
                 res.send(JSON.stringify(({'msg': response})));
+
             });
         }
     );

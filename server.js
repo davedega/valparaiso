@@ -52,6 +52,7 @@ function error(err) {
 
 function success(app) {
     console.log('Connected to "' + connection.database + '"');
+    
     app.listen(PORT, SERVER_NAME, function () {
         console.log("Listening on port " + PORT);
         require('./routes/routes.js')(app);
