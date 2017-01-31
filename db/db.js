@@ -11,29 +11,15 @@ exports.sayhello = function () {
     console.log('hi madafackas from underwater');
 };
 
-exports.connect = function (conf, callback) {
+exports.connect = function (conf, res) {
     console.log('connectiong...');
-    if (state.pool) return callback()
-
+    if (state.pool) return res()
     var pool = mysql.createPool(conf);
 
     pool.getConnection(function (err, connection) {
-        if (err) return callback(err)
+        if (err) return res(err)
         state.pool = connection
-        callback()
-    });
-};
-
-// Get donations
-exports.getDonations = function (callback) {
-    var sql = "SELECT * FROM donation ";
-    state.pool.query(sql, function (err, results) {
-        // state.pool.release();
-        if (err) {
-            callback(treatError(err));
-            return;
-        }
-        callback(treatData(results));
+        res()
     });
 };
 
