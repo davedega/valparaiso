@@ -18,12 +18,14 @@ module.exports = function (app) {
     //sign up
     app.post('/signup', function (req, res) {
             console.log('/signup called with following params: ');
-            var mUser = req.body.username;
+            var mEmal = req.body.email;
             var mPass = req.body.password
-            console.log('user' + mUser);
+            var mGender = req.body.gender
+            console.log('email' + mEmal);
             console.log('pass' + mPass);
-            dao.newUser(mUser, mPass, function (response) {
-                res.send(JSON.stringify({'msg': response}));
+            console.log('genero' + mGender);
+            dao.newPirate(mEmal, mPass, mGender, function (response) {
+                res.send(JSON.stringify(response));
             });
 
         }
