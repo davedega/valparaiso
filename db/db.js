@@ -24,7 +24,7 @@ exports.connect = function (conf, res) {
 };
 
 exports.newActivity = function (activityName, callback) {
-
+//aqui le sigo 
 }
 
 // Insert new pirate
