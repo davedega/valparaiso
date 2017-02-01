@@ -23,6 +23,29 @@ exports.connect = function (conf, res) {
     });
 };
 
+exports.newActivity = function (activityName, callback) {
+
+}
+
+// Insert new pirate
+exports.newPirate = function (email, password, gender, callback) {
+    var sql = "INSERT INTO pirate SET ?";
+    var values = {
+        pirateid: null,
+        email: email,
+        password: password,
+        gender: gender
+    };
+    state.pool.query(sql, values, function (err, results, fields) {
+        // state.pool.release();
+        if (err) {
+            callback(treatError(err));
+            return;
+        }
+        console.log(results.insertId);
+        callback(treatData(results));
+    });
+};
 // Get donations
 exports.getDonations = function (callback) {
     var sql = "SELECT * FROM donation ";
@@ -51,5 +74,6 @@ function treatData(data) {
 function treatError(err) {
     var response = {};
     response.error = err.code;
+    response.msg = err.message;
     return response;
 };

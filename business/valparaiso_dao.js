@@ -13,11 +13,7 @@ module.exports = {
     getActivities: function (callback) {
         console.log("DAO, getActivities");
     },
-    getDonations: function (callback) {
-        db.getDonations(function (response) {
-            callback(response)
-        });
-    },
+
     getProjects: function (callback) {
         console.log("DAO, getProjects ");
     },
@@ -34,12 +30,22 @@ module.exports = {
     newActivity: function (activityName, callback) {
         console.log("DAO, insert newActivity: " + activityName);
         responseDao = 'new activity called: ' + activityName;
-        callback(responseDao);
+        db.newActivity(activityName, function (response) {
+            callback(response);
+        });
     },
-    newUser: function (username, password, callback) {
-        console.log("DAO, newUser: user" + username);
-        console.log("DAO, newUser: password" + password);
-        responseDao = 'new user: ' + username + ' and password: ' + password;
-        callback(responseDao);
+    getDonations: function (callback) {
+        db.getDonations(function (response) {
+            callback(response)
+        });
+    },
+    newPirate: function (email, password, gender, callback) {
+        console.log("DAO, newUser: email" + email);
+        console.log("DAO, newUser:" + password);
+        console.log("DAO, gender: gender" + gender);
+        
+        db.newPirate(email, password, gender, function (response) {
+            callback(response)
+        });
     }
 }
